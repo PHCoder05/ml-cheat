@@ -155,7 +155,6 @@ export default function PracticalListFixedLeft() {
     <div className="flex w-full min-h-screen bg-gray-50">
       {/* Left sidebar with all practicals */}
       <div className="w-64 h-screen overflow-y-auto sticky top-0 bg-white border-r shadow-sm p-4">
-        // <h2 className="text-sm font-semibold mb-3 text-gray-700">Practicals</h2>
         <ul className="space-y-2 text-[10px] text-gray-700">
           {algorithms.map((algo) => (
             <li key={algo.id} className="flex justify-between items-center">
@@ -179,7 +178,6 @@ export default function PracticalListFixedLeft() {
 
       {/* Right side empty or for future use */}
       <div className="flex-1 p-8 flex justify-center items-center text-gray-400 text-sm">
-        // Select a practical and copy the code using the button.
       </div>
     </div>
   );
