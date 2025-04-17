@@ -61,19 +61,46 @@ print(f"Accuracy of the SVM classifier: {accuracy * 100:.2f}%")
   },
   {
     id: 8,
-    name: "heatmap correlation",
-    code: `...your code here...`,
+    name: "GMM PCA",
+    code: `# Import required libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.decomposition import PCA
+from sklearn.mixture import GaussianMixture
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
+
+iris = datasets.load_iris()
+X = iris.data  
+y = iris.target  
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+gmm = GaussianMixture(n_components=3, random_state=42)
+gmm_labels = gmm.fit_predict(X_scaled)
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=gmm_labels, cmap='viridis', s=50)
+plt.title("Clustering using GMM (PCA visualization)", fontsize=14)
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.colorbar(label='Cluster')
+
+cluster_names = {0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'}
+
+for i in range(3):
+    plt.scatter(X_pca[gmm_labels == i, 0], X_pca[gmm_labels == i, 1], label=cluster_names[i])
+
+plt.legend()
+plt.show()
+`,
   },
-  {
-    id: 9,
-    name: "sns pairplot visualization",
-    code: `...your code here...`,
-  },
-  {
-    id: 10,
-    name: "lineplot & scatterplot",
-    code: `...your code here...`,
-  },
+
   // Add more if needed
 ];
 
