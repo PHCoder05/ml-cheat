@@ -32,7 +32,51 @@ print(f"Accuracy of the SVM classifier: {accuracy * 100:.2f}%")
   {
     id: 2,
     name: "bw",
-    code: `...your code here...`,
+    code: `import pandas as pd
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+
+file_path = '/content/birthwt.csv'
+
+df = pd.read_csv(file_path)
+
+print(df.head())
+
+
+age_corr, _ = pearsonr(df['age'], df['bwt'])
+print(f'Correlation between Age and Birth Weight: {age_corr}')
+
+X_age = sm.add_constant(df['age'])
+y = df['bwt']
+
+model_age = sm.OLS(y, X_age).fit()
+print(model_age.summary())
+
+lwt_corr, _ = pearsonr(df['lwt'], df['bwt'])
+print(f'Correlation between Mother\'s Weight and Birth Weight: {lwt_corr}')
+
+X_lwt = sm.add_constant(df['lwt'])
+model_lwt = sm.OLS(y, X_lwt).fit()
+print(model_lwt.summary())
+
+plt.figure(figsize=(8, 6))
+plt.scatter(df['age'], df['bwt'], color='blue', alpha=0.5)
+plt.title('Mother\'s Age vs Birth Weight')
+plt.xlabel('Mother\'s Age')
+plt.ylabel('Birth Weight')
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8, 6))
+plt.scatter(df['lwt'], df['bwt'], color='green', alpha=0.5)
+plt.title('Mother\'s Weight vs Birth Weight')
+plt.xlabel('Mother\'s Weight')
+plt.ylabel('Birth Weight')
+plt.grid(True)
+plt.show()
+`,
   },
   {
     id: 3,
