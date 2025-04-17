@@ -121,7 +121,7 @@ print(df.head())
   },
   {
     id: 4,
-    name: "pca visualization",
+    name: "KNN",
     code: `...your code here...`,
   },
   {
