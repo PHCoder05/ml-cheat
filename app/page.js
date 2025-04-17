@@ -36,8 +36,44 @@ print(f"Accuracy of the SVM classifier: {accuracy * 100:.2f}%")
   },
   {
     id: 3,
-    name: "logistic regression",
-    code: `...your code here...`,
+    name: "kM",
+    code: `import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_scaled)
+
+centroids = kmeans.cluster_centers_
+labels = kmeans.labels_
+
+plt.figure(figsize=(8, 6))
+
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap='viridis', marker='o')
+
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=200, marker='X', label='Centroids')
+
+plt.title('K-Means Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+df = pd.DataFrame(X_scaled, columns=iris.feature_names)
+df['Cluster'] = labels
+print(df.head())
+`,
   },
   {
     id: 4,
@@ -46,13 +82,64 @@ print(f"Accuracy of the SVM classifier: {accuracy * 100:.2f}%")
   },
   {
     id: 5,
-    name: "decision tree classification",
+    name: "market ",
     code: `...your code here...`,
   },
   {
     id: 6,
-    name: "k-means clustering",
-    code: `...your code here...`,
+    name: "NN",
+    code: `import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelBinarizer
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.utils import plot_model
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+encoder = LabelBinarizer()
+y = encoder.fit_transform(y)
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+model = Sequential()
+model.add(Dense(10, input_dim=4, activation='relu'))
+model.add(Dense(8, activation='relu'))
+model.add(Dense(3, activation='softmax'))  # 3 classes in Iris
+
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+history = model.fit(X_train, y_train, validation_split=0.2, epochs=50, batch_size=8)
+
+plot_model(model, to_file='iris_model_architecture.png', show_shapes=True, show_layer_names=True)
+
+plt.plot(history.history['accuracy'], label='Train Accuracy')
+plt.plot(history.history['val_accuracy'], label='Val Accuracy')
+plt.title('Model Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Plot loss
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Val Loss')
+plt.title('Model Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
+`,
   },
   {
     id: 7,
